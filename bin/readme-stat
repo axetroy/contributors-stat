@@ -115,6 +115,11 @@ function insert2readme(readmePath, data) {
 
   let range = findTag(readme, reg.start, reg.end);
 
+  if(_.isEmpty(range)){
+    console.log('Not Found Tag');
+    return;
+  }
+
   range = range[0];
 
   let result = _.chain(readme.split(/\n/g))
@@ -159,7 +164,7 @@ function generateRawMdFromData(data) {
 
 
 program
-  .version(require('./package.json').version)
+  .version(require('../package.json').version)
   .description('insert contributor into README.md')
   .usage('<options>')
   .option('-f, --file [file]', 'specify a .md file', 'README.md');
