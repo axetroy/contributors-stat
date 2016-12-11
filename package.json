@@ -1,0 +1,17 @@
+{
+  "name": "readme-stat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": "./bin/readme-stat",
+  "dependencies": {
+    "co": "^4.6.0",
+    "commander": "^2.9.0",
+    "lodash": "^4.17.2"
+  }
+}

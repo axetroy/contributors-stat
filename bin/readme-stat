@@ -1,0 +1,172 @@
+#!/usr/bin/env node
+
+const exec = require('child_process').exec;
+const process = require('process');
+const fs = require('fs');
+const path = require('path');
+
+const co = require('co');
+const _ = require('lodash');
+const program = require('commander');
+
+const reg = {
+  start: /\[\]\(\#contributors\)/,
+  end: /\[\]\(\#contributors-end\)/
+};
+
+function parser(callback) {
+  let logStream = exec('git log --pretty=format:"%cn" --stat', {
+    cwd: process.cwd(),
+    timeout: 5000
+  });
+
+  let data = '';
+
+  logStream.stdout.on('data', function (chunk) {
+    data += chunk;
+  });
+
+  logStream.stdout.on('close', function () {
+    let totalChange = 0;
+    let totalAdd = 0;
+    let totalRemove = 0;
+    let stats = _.chain(data.split('\n\n'))
+      .map(function (stat, index) {
+        let arr = _.chain(stat.split('\n'))
+          .filter(v=>!!v)
+          .value();
+        let author = arr[0].trim();
+        let change = _.last(arr).trim();
+        let insertion = change.match(/\d+(?=\sinsertion)/g) || [0];
+        let deletion = change.match(/\d+(?=\sdeletion)/g) || [0];
+
+        // stat
+        totalChange += +insertion + +deletion;
+        totalAdd += +insertion;
+        totalRemove += +deletion;
+        return {
+          author,
+          change: {
+            insertion: +insertion[0] || 0,
+            deletion: +deletion[0] || 0
+          }
+        };
+      })
+      .value();
+
+    let authors = {};
+    _.each(stats, function (stat) {
+      authors[stat.author] = authors[stat.author] || {commit: 0, insertion: 0, deletion: 0};
+      authors[stat.author].commit += 1;
+      authors[stat.author].insertion += stat.change.insertion;
+      authors[stat.author].deletion += stat.change.deletion;
+    });
+
+    let authorsArr = [];
+
+    _.each(authors, function (data, author) {
+      authorsArr.push(_.extend({
+        author,
+        percent: (data.insertion + data.deletion) / totalChange,
+        addPercent: data.insertion / totalAdd,
+        removePercent: data.deletion / totalRemove
+      }, data));
+    });
+
+    authorsArr = _.chain(authorsArr)
+      .sortBy(v=>-(v.insertion + v.deletion))
+      .value();
+
+    callback(null, authorsArr);
+
+  });
+}
+
+function findTag(str, startReg, endReg) {
+  let starts = [];
+  let range = [];
+  _.chain(str.split(/\n/g))
+    .each(function (text, line) {
+      // find the start marker
+      if (startReg.test(text)) {
+        starts.push({
+          line: line + 1,
+          code: text
+        });
+      }
+      // match the start marker with end
+      else if (endReg.test(text)) {
+        if (starts.length) {
+          let lastStart = starts.pop();
+          range.push({
+            start: lastStart.line,
+            end: line + 1
+          });
+        }
+      }
+    })
+    .value();
+
+  return range;
+}
+
+function insert2readme(readmePath, data) {
+  var readme = fs.readFileSync(readmePath, 'utf-8');
+
+  let range = findTag(readme, reg.start, reg.end);
+
+  range = range[0];
+
+  let result = _.chain(readme.split(/\n/g))
+    .map(function (text, line) {
+      line += 1;
+      if (line > range.start && line < range.end) {
+        if (range.hasInsert) return '## null';
+        range.hasInsert = true;
+        return generateRawMdFromData(data);
+      } else {
+        return text;
+      }
+    })
+    .filter(v=>v.trim() !== '## null')
+    .value();
+
+  fs.writeFileSync(readmePath, result.join('\n'), 'utf-8');
+
+}
+
+function generateRawMdFromData(data) {
+  var rawStr = [];
+  let totalNumber = 50;
+  let maxAuthorLength = _.max(_.map(data, v=>v.author.length));
+  _.each(data, function (stat) {
+    let author = stat.author;
+    let linesNumber = Math.ceil(totalNumber * stat.percent);
+    let percent = (stat.percent * 100).toFixed(2);
+    let lines = '▇'.repeat(linesNumber) + '░'.repeat(totalNumber - linesNumber);
+    let fill = '-'.repeat(maxAuthorLength - author.length + 1);
+    rawStr.push(
+      `
+- @${author} ${fill} ${lines}
+  - ${percent}%
+  - +${stat.insertion}
+  - -${stat.deletion}
+`);
+  });
+  console.log(rawStr.join(''));
+  return rawStr.join('');
+}
+
+
+program
+  .version(require('./package.json').version)
+  .description('insert contributor into README.md')
+  .usage('<options>')
+  .option('-f, --file [file]', 'specify a .md file', 'README.md');
+
+program.parse(process.argv);
+
+parser(function (err, data) {
+  let readmePath = program.file || path.join(process.cwd(), 'README.md');
+  insert2readme(readmePath, data);
+});
