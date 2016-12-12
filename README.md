@@ -32,10 +32,9 @@ $ readme-stat -h
 ```markdown
 ## test
 
-[](#contributors)
-it will rewrite this block with contributors info
-please keep at least one line in this block
-[](#contributors-end)
+[#](#contributors)
+
+[#](#contributors-end)
 ```
 
 ```bash
@@ -45,9 +44,10 @@ cat ./README.md
 
 ## test
 
-[](#contributors)
-....
-[](#contributors-end)
+[#](#contributors)
+it will rewrite this block with contributors info
+please keep at least one line in this block
+[#](#contributors-end)
 ```
 
 ## Test
@@ -71,8 +71,8 @@ yarn
 
 - @axetroy --- ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
   - 100.00%
-  - +403
-  - -30
+  - +457
+  - -36
 
 [](#contributors-end)
 
