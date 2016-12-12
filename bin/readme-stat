@@ -157,7 +157,7 @@ function generateRawMdFromData(data) {
   let totalNumber = 50;
   let maxAuthorLength = _.max(_.map(data, v=>v.author.length));
   _.each(data, function (stat) {
-    let author = stat.author;
+    let author = stat.author.replace(/^"|"$/g, '');
     let linesNumber = Math.ceil(totalNumber * stat.percent);
     let percent = (stat.percent * 100).toFixed(2);
     let lines = '▇'.repeat(linesNumber) + '░'.repeat(totalNumber - linesNumber);
