@@ -1,5 +1,7 @@
 # readme-stat
 
+insert contributors info into a file
+
 ## Install
 
 ```bash
