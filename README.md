@@ -26,6 +26,30 @@ $ readme-stat -h
 
 ```
 
+## Example
+
+**README.md**
+```markdown
+## test
+
+[](#contributors)
+it will rewrite this block with contributors info
+please keep at least one line in this block
+[](#contributors-end)
+```
+
+```bash
+readme-stat
+
+cat ./README.md
+
+## test
+
+[](#contributors)
+....
+[](#contributors-end)
+```
+
 ## Test
 
 ```bash
