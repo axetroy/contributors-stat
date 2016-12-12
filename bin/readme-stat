@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const co = require('co');
 const _ = require('lodash');
 const program = require('commander');
+require('colors');
 
 const reg = {
   start: /\[\]\(\#contributors\)/,
@@ -119,7 +120,7 @@ function insert2readme(readmePath, data) {
   let ranges = findTag(readme, reg.start, reg.end);
 
   if (_.isEmpty(ranges)) {
-    process.stderr.write('Not Found Tag\n');
+    process.stderr.write(`${'[ERROR]'.red} Not Found Tag ${'[](#contributors) [](#contributors-end)'.green}\n`);
     return;
   }
 
@@ -147,7 +148,7 @@ function insert2readme(readmePath, data) {
 
   fs.writeFileSync(readmePath, result, 'utf-8');
 
-  process.stdout.write('Insert into ' + readmePath + '\n');
+  process.stdout.write(`${'[DEBUG]'.blue} Insert into ${readmePath.green}\n`);
 
 }
 
@@ -177,7 +178,7 @@ program
   .version(require('../package.json').version)
   .description('insert contributor into README.md')
   .usage('<options>')
-  .option('-f, --file [file]', 'specify a .md file', 'README.md')
+  .option('-f, --file [file]', 'specify a .md file, default README.md in current work dir', 'README.md')
   .option('-r, --raw', 'only print raw in stdout', false);
 
 program.parse(process.argv);
