@@ -1,13 +1,13 @@
 {
-  "name": "readme-stat",
-  "version": "0.1.0",
+  "name": "contributors-stat",
+  "version": "0.1.1",
   "description": "insert contributors info into a file",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "bin": "./bin/readme-stat",
+  "bin": "./bin/contributors-stat",
   "dependencies": {
     "co": "^4.6.0",
     "colors": "^1.1.2",
