@@ -1,23 +1,23 @@
-# readme-stat
+# contributors-stat
 
 insert contributors info into a file
 
 ## Install
 
 ```bash
-npm install readme-stat -g
+npm install contributors-stat -g
 # or
-yarn add global readme-stat
+yarn add global contributors-stat
 ```
 
 ## Usage
 
 ```bash
-$ readme-stat -h
+$ contributors-stat -h
 
-  Usage: readme-stat <options>
+  Usage: contributors-stat <options>
 
-  insert contributor into README.md
+  insert contributor info into a file, like README.md
 
   Options:
 
@@ -40,7 +40,7 @@ $ readme-stat -h
 ```
 
 ```bash
-readme-stat
+contributors-stat
 
 cat ./README.md
 
