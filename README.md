@@ -17,14 +17,57 @@ $ contributors-stat -h
 
   Usage: contributors-stat <options>
 
-  insert contributor info into a file, like README.md
+
+  Commands:
+
+    insert|i [file]
+
+  insert contributors info into a file
 
   Options:
 
-    -h, --help         output usage information
-    -V, --version      output the version number
-    -f, --file [file]  specify a .md file, default README.md in current work dir
-    -r, --raw          only print raw in stdout
+    -h, --help     output usage information
+    -V, --version  output the version number
+```
+
+## Example
+
+```markdown
+
+## Contributors
+
+<!-- @stat-start -->    // remove this comment
+<!-- @stat-end -->      // remove this comment
+
+// run command: contributors-stat insert ./README.md
+// and it will insert table like this:
+
+<table>
+<thead>
+  <td>Contributors</td>
+  <td>Commit</td>
+  <td>Add Code</td>
+  <td>Remove Code</td>
+  <td>Total Changes</td>
+</th>
+</thead>
+<tbody>
+<tr>
+  <td><a href="https://www.github.com/axetroy">axetroy</a></td>
+  <td>12</td>
+  <td>+475(87.64%)</td>
+  <td>-53(9.78%)</td>
+  <td>528(97.42%)</td>
+</tr>
+<tr>
+  <td><a href="https://www.github.com/GitHub">GitHub</a></td>
+  <td>1</td>
+  <td>+7(1.29%)</td>
+  <td>-7(1.29%)</td>
+  <td>14(2.58%)</td>
+</tr>
+</tbody>
+</table>
 
 ```
 
@@ -58,17 +101,17 @@ yarn
 <tbody>
 <tr>
   <td><a href="https://www.github.com/axetroy">axetroy</a></td>
-  <td>12</td>
-  <td>+475(87.64%)</td>
-  <td>-53(9.78%)</td>
-  <td>528(97.42%)</td>
+  <td>13</td>
+  <td>+765(72.37%)</td>
+  <td>-278(26.30%)</td>
+  <td>1043(98.68%)</td>
 </tr>
 <tr>
   <td><a href="https://www.github.com/GitHub">GitHub</a></td>
   <td>1</td>
-  <td>+7(1.29%)</td>
-  <td>-7(1.29%)</td>
-  <td>14(2.58%)</td>
+  <td>+7(0.66%)</td>
+  <td>-7(0.66%)</td>
+  <td>14(1.32%)</td>
 </tr>
 </tbody>
 </table>
