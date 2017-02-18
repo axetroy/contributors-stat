@@ -28,30 +28,6 @@ $ contributors-stat -h
 
 ```
 
-## Example
-
-**README.md**
-```markdown
-## test
-
-[#](#contributors)
-
-[#](#contributors-end)
-```
-
-```bash
-contributors-stat
-
-cat ./README.md
-
-## test
-
-[#](#contributors)
-it will rewrite this block with contributors info
-please keep at least one line in this block
-[#](#contributors-end)
-```
-
 ## Test
 
 ```bash
@@ -69,15 +45,34 @@ yarn
 
 ## Contributors
 
-[](#contributors)
-
-- @axetroy --- ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
-  - 100.00%
-  - +470
-  - -48
-
-[](#contributors-end)
-
+<!-- @stat-start -->
+<table>
+<thead>
+  <td>Contributors</td>
+  <td>Commit</td>
+  <td>Add Code</td>
+  <td>Remove Code</td>
+  <td>Total Changes</td>
+</th>
+</thead>
+<tbody>
+<tr>
+  <td><a href="https://www.github.com/axetroy">axetroy</a></td>
+  <td>12</td>
+  <td>+475(87.64%)</td>
+  <td>-53(9.78%)</td>
+  <td>528(97.42%)</td>
+</tr>
+<tr>
+  <td><a href="https://www.github.com/GitHub">GitHub</a></td>
+  <td>1</td>
+  <td>+7(1.29%)</td>
+  <td>-7(1.29%)</td>
+  <td>14(2.58%)</td>
+</tr>
+</tbody>
+</table>
+<!-- @stat-end -->
 ## License
 
 The MIT License (MIT)
