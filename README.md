@@ -101,17 +101,10 @@ yarn
 <tbody>
 <tr>
   <td><a href="https://www.github.com/axetroy">axetroy</a></td>
-  <td>13</td>
-  <td>+765(72.37%)</td>
-  <td>-278(26.30%)</td>
-  <td>1043(98.68%)</td>
-</tr>
-<tr>
-  <td><a href="https://www.github.com/GitHub">GitHub</a></td>
-  <td>1</td>
-  <td>+7(0.66%)</td>
-  <td>-7(0.66%)</td>
-  <td>14(1.32%)</td>
+  <td>15</td>
+  <td>+1015(67.67%)</td>
+  <td>-485(32.33%)</td>
+  <td>1500(100.00%)</td>
 </tr>
 </tbody>
 </table>
