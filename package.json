@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "insert contributors info into a file",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "contributors": "./bin/contributors-stat i ./README.md"
   },
   "author": "",
   "license": "ISC",
