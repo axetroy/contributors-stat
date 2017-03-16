@@ -1,5 +1,7 @@
 # contributors-stat
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/contributors-stat.svg)](https://greenkeeper.io/)
+
 insert contributors info into a file
 
 ## Install
